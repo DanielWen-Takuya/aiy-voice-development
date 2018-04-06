@@ -1,6 +1,18 @@
 # aiy-voice-development
 Using Google AIY Voice Kit, basic and new function for home use.
 
+Functionalities : 
+- Part AIY Voice Raspberry
+  * React to the button : led changes and "listening" to question
+  * Control the Speaker : "answer" the question and play the music
+  * Infrared Detection : Detect the human being
+  * PostgreSQL Server : Save the detection details, aiy actions and access authentication
+  * Communicate with Android Phone : Receive the command and return the information
+- Part AIY Android Application
+  * Communicate with Raspberry : via WLAN
+  * Shows information : action list, action graph, detection details, detection graph
+  * Send command : get list of music, play music (store in Raspberry), ask questions, led shining...
+
 Knowing the APIs : 
 - aiy.voicehat (the PCB)
   * get_button() : control the button
@@ -45,15 +57,17 @@ Knowing the APIs :
   
 
 2018/04/04
-The box is assembled and the image is pluged in the card. Raspberry seems working well. Waiting for the keypad.
+- The box is assembled and the image is pluged in the card. Raspberry seems working well. Waiting for the keypad.
 
 2018/04/05
-Reading of the examples : 
-- assistant_library_demo.py : proposes a process helper to define the status of Assistant(micphone) (Ready, Listening, thinking, Finish)
-- assistant_grpc_demo.py : shows how we can control the button, get information from Assistant(micphone)
-- assistant_library_with_button_demo.py : proposes a class that assistant works in background and looping for the activation by the button
-- assistant_library_with_local_commands_demo.py : aiming to specific questions(power_off, reboot, say ip) and response
-- cloudspeech_demo.py : Google CloudSpeech can perform as well as Assistant, so recognizing the text
+- Reading of the examples : 
+  * assistant_library_demo.py : proposes a process helper to define the status of Assistant(micphone) (Ready, Listening, thinking, Finish)
+  * assistant_grpc_demo.py : shows how we can control the button, get information from Assistant(micphone)
+  * assistant_library_with_button_demo.py : proposes a class that assistant works in background and looping for the activation by the button
+  * assistant_library_with_local_commands_demo.py : aiming to specific questions(power_off, reboot, say ip) and response
+  * cloudspeech_demo.py : Google CloudSpeech can perform as well as Assistant, so recognizing the text
 
 2018/04/06
-Learning APIs.
+- Learning APIs.
+- Finish the architecture of the system
+- Set the functionalities.
