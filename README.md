@@ -71,3 +71,15 @@ Knowing the APIs :
 - Learning APIs.
 - Finish the architecture of the system
 - Set the functionalities.
+
+2018/04/07
+- thinking how can the examples helps coding:
+  * assistant_library_demo.py : a simple example that controls box by voice beginning by "OK, google"; the backend of detecting hotword and responding are automatically done by simply : 
+    *    with Assistant(credentials) as assistant:
+    *    for event in assistant.start():dosth()
+    * and the process_event() is for the shining of LED by status_ui.status()
+    * so a part of functions in Audio Function are done directely by assistent (record and answer), the text needs to be captured and saved by server function(use event.args['text']); play function needs to be done directely by aiy.audio
+  * assistant_grpc_demo.py : no using grpc
+  * assistant_library_with_button_demo.py : using button to start a conversation in library assistant situation. And the class can be run in background ,use this!
+  * assistant_library_with_local_commands_demo.py : can response / add to specific questions, useful in playing songs, recording things...
+  * cloudspeech_demo.py : same as assistant, no using
