@@ -19,7 +19,7 @@ Knowing the APIs :
     * Synchronous usage : .wait_for_press()
     * Asynchronous usage : register a function on_button_press, then .on_press(on_button_press), once pressed, this function is       called. .on_press(None) to unregister
   * get_led() : control the led
-    * .set_state(aiy.voicehat.LED.???) : OFF, ON, BLINK, BLINK_3(?), BEACON(?), BEACON_4(?), BEACON_DARK(?), DECAY(change slowly?), PULSE_SLOW, PULSE_QUICK
+    * .set_state(aiy.voicehat.LED.???) : OFF, ON, BLINK(1s per blink), BLINK_3(3 fast 1 pulse), BEACON(light strong to middle), BEACON_4(ON slowly to OFF and return), BEACON_DARK(OFF), DECAY(ON slowly to OFF), PULSE_SLOW(ON very slowly to OFF and return), PULSE_QUICK(little faster than the slow one)
   * get_status_ui() : return the status of led following the process of voice
     * .set_trigger_sound_wave('sound file') : when "listening", the sound plays out
 - aiy.audio
@@ -83,3 +83,7 @@ Knowing the APIs :
   * assistant_library_with_button_demo.py : using button to start a conversation in library assistant situation. And the class can be run in background ,use this!
   * assistant_library_with_local_commands_demo.py : can response / add to specific questions, useful in playing songs, recording things...
   * cloudspeech_demo.py : same as assistant, no using
+
+  2018/04/08
+  - tested the led mode
+  - nearly finish the assistant function (except of playing music, recording sth(try cloud speech))
