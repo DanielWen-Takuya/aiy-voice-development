@@ -1,7 +1,7 @@
 # aiy-voice-development
 Using Google AIY Voice Kit, basic and new function for home use.
 
-Functionalities : 
+# Functionalities : 
 - Part AIY Voice Raspberry
   * React to the button : led changes and "listening" to question
   * Control the Speaker : "answer" the question and play the music
@@ -13,7 +13,7 @@ Functionalities :
   * Shows information : action list, action graph, detection details, detection graph
   * Send command : get list of music, play music (store in Raspberry), ask questions, led shining...
 
-Knowing the APIs : 
+# Knowing the APIs of AIY Voice: 
 - aiy.voicehat (the PCB)
   * get_button() : control the button
     * Synchronous usage : .wait_for_press()
@@ -54,8 +54,43 @@ Knowing the APIs :
     * the assistant run background and generates a stream of Events
       for event in assistant.start():process_event(event)
     * example in aiy website
+
+# Psycopg2
+- Install postgresql
+  * sudo apt-get update
+  * sudo apt-get install postgresql postgresql-contrib
+  * Create role : sudo -u postgres createuser --interactive (optional)(in default, role postgres is created)
+  * Create database : createdb [db name]  
+  * Login : sudo -u [db_name] psql
+
+- Install psycopg2 http://initd.org/psycopg/docs/usage.html
+  * pip install psycopg2
+  * import psycopg2
+  * connect to an existing database : conn = psycopg2.connect("dbname=test user=postgres password=secret") (surrounded by try-except)
+  * Open a cursor to perform operations : cur = conn.cursor()
+  * Execute : cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
+  * Update to make change : conn.commit()
+  * Query : 
+    * cur.execute("SELECT * FROM test;")
+    * cur.fetchone()
+  * Close communication
+    * cur.close()
+    * conn.close()
+  * Data : 
+    * dt = datetime.datetime.now()
+    * cur.mogrify("SELECT %s, %s, %s;", (dt, dt.date(), dt.time())) = "SELECT '2010-02-08T01:40:27.425337', '2010-02-08', '01:40:27.425337';"
+  * use "with" in cursur
+    * conn = psycopg2.connect(DSN)
+    * with conn:
+        with conn.cursor() as curs:
+          curs.execute(SQL1)
+    * with conn:
+        with conn.cursor() as curs:
+          curs.execute(SQL2)
+    * conn.close()
   
 
+# Log
 2018/04/04
 - The box is assembled and the image is pluged in the card. Raspberry seems working well. Waiting for the keypad.
 
@@ -84,6 +119,14 @@ Knowing the APIs :
   * assistant_library_with_local_commands_demo.py : can response / add to specific questions, useful in playing songs, recording things...
   * cloudspeech_demo.py : same as assistant, no using
 
-  2018/04/08
-  - tested the led mode
-  - nearly finish the assistant function (except of playing music, recording sth(try cloud speech))
+2018/04/08
+- tested the led mode
+- nearly finish the assistant function (except of playing music, recording sth(try cloud speech))
+
+2018/04/09
+- Learning PostgreSQL in Python 3 : Psycopg2
+
+# To-Do List
+- How can we get the reponse in text ?
+- Play a local music using aiy.audio
+- Set trigger sound
