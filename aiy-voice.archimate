@@ -24,6 +24,7 @@
       <documentation>Save the action of button, audio&#xD;
 Save the detection details&#xD;
 Save the list of music&#xD;
+Save the log of demands from app&#xD;
 Save the personal information for authentification</documentation>
     </element>
     <element xsi:type="archimate:ApplicationFunction" name="Detector Function" id="ca1d9729-d46c-4c95-8232-eca7e4edf734"/>
