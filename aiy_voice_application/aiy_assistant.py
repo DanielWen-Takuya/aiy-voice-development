@@ -20,6 +20,8 @@ import aiy.audio
 import aiy.voicehat
 from google.assistant.library.event import EventType
 
+import subprocess
+
 # need to be used for postgresql
 logging.basicConfig(
     level=logging.INFO,
@@ -31,6 +33,7 @@ class AiyAssistant(object):
         self._task = threading.Thread(target=self._run_task)
         self._can_start_conversation = False
         self._assistant = None
+        self.music_process = None
 
     def start(self):
         self._task.start()
@@ -44,6 +47,8 @@ class AiyAssistant(object):
 
     def _process_event(self, event):
         status_ui = aiy.voicehat.get_status_ui()
+        status_ui.set_trigger_sound_wave('listening.wav');
+        
         if event.type == EventType.ON_START_FINISHED:
             status_ui.status('ready')
             self._can_start_conversation = True
@@ -64,6 +69,9 @@ class AiyAssistant(object):
             if text == 'testing':
                 self._assistant.stop_conversation()
                 self.testing()
+            elif text == 'play music':
+                self._assistant.stop_conversation()
+                self.music_process = subprocess.Popen(['mplayer','buddha_song.mp3'])
 
         elif event.type == EventType.ON_END_OF_UTTERANCE:
             status_ui.status('thinking')
@@ -71,7 +79,7 @@ class AiyAssistant(object):
         elif (event.type == EventType.ON_CONVERSATION_TURN_FINISHED
               or event.type == EventType.ON_CONVERSATION_TURN_TIMEOUT
               or event.type == EventType.ON_NO_RESPONSE):
-            # status_ui.status('ready') # this will block the reacting of led
+                     #  status_ui.status('ready')
             self._can_start_conversation = True
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and event.args and event.args['is_fatal']:
@@ -84,12 +92,13 @@ class AiyAssistant(object):
         # 2. The assistant library is already in a conversation.
         if self._can_start_conversation:
             self._assistant.start_conversation()
+        if self.music_process is not None:
+            self.music_process.terminate()
 
     def testing(self):
-        # you can put some test here
         print('Testing!')
         led = aiy.voicehat.get_led()
-        led.set_state(aiy.voicehat.LED.ON)
+        #led.set_state(aiy.voicehat.LED.ON)
         #led.set_state(aiy.voicehat.LED.BLINK)
         #led.set_state(aiy.voicehat.LED.BLINK_3)
         #led.set_state(aiy.voicehat.LED.BEACON)

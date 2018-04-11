@@ -21,7 +21,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
   * get_led() : control the led
     * .set_state(aiy.voicehat.LED.???) : OFF, ON, BLINK(1s per blink), BLINK_3(3 fast 1 pulse), BEACON(light strong to middle), BEACON_4(ON slowly to OFF and return), BEACON_DARK(OFF), DECAY(ON slowly to OFF), PULSE_SLOW(ON very slowly to OFF and return), PULSE_QUICK(little faster than the slow one)
   * get_status_ui() : return the status of led following the process of voice
-    * .set_trigger_sound_wave('sound file') : when "listening", the sound plays out
+    * .set_trigger_sound_wave('sound file') : when "listening", the sound plays out :using 44100Hz and mono file
 - aiy.audio
   * get_player() : not using unless changing the default player
   * get_recorder() : not using unless changing the default recorder
@@ -126,7 +126,11 @@ Using Google AIY Voice Kit, basic and new function for home use.
 2018/04/09
 - Learning PostgreSQL in Python 3 : Psycopg2
 
+2018/04/11
+- set the trigger sound, the volume needs to be small in order not to be loud
+- play music by command or button, can be interrupted by pressing button
+
 # To-Do List
 - How can we get the reponse in text ?
-- Play a local music using aiy.audio
-- Set trigger sound
+- Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
+- Set trigger sound->Done

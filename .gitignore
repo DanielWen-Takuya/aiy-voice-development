@@ -101,3 +101,5 @@ ENV/
 .mypy_cache/
 
 .idea
+*.mp3
+*.wav
