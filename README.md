@@ -59,9 +59,11 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - Install postgresql
   * sudo apt-get update
   * sudo apt-get install postgresql postgresql-contrib
+  * sudo -u postgres psql
+  * ALTER USER postgres WITH PASSWORD 'postgres'： change password
   * Create role : sudo -u postgres createuser --interactive (optional)(in default, role postgres is created)
-  * Create database : createdb [db name]  
-  * Login : sudo -u [db_name] psql
+  * Create database : create database [db name]  
+  * Login : psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
 
 - Install psycopg2 http://initd.org/psycopg/docs/usage.html
   * pip install psycopg2
@@ -135,4 +137,4 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
 - Record a file in local by command "Record what I am going to say" (file in local, text may be in database)
-- Try Postgresql
+- Try Postgresql->create all the tables 
