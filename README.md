@@ -134,3 +134,5 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
+- Record a file in local by command "Record what I am going to say" (file in local, text may be in database)
+- Try Postgresql
