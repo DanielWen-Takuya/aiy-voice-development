@@ -64,6 +64,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
   * Create role : sudo -u postgres createuser --interactive (optional)(in default, role postgres is created)
   * Create database : create database [db name]  
   * Login : psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
+  * Run a file in db: -i pathof_mysqlfile.sql
 
 - Install psycopg2 http://initd.org/psycopg/docs/usage.html
   * pip install psycopg2
@@ -136,5 +137,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
-- Record a file in local by command "Record what I am going to say" (file in local, text may be in database)
-- Try Postgresql->create all the tables 
+- Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)
+- Try Postgresql->create all the tables and insertion
+- play music from the list in db
+- 
