@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import psycopg2
+import psycopg2, datetime
 
 """
 PostgreServer class can connect to the database and execute SQL command.
@@ -52,7 +52,7 @@ class PostgreServer(object):
 		self.execute(command_save_detect_human)
 		
 	def save_demand_app(self,demand_time,demand,response=None,user_id):
-		command_save_demand_app = 'INSERT INTO demand_app VALUES (DEFAULT,%s,%s,%s,%s)' % (demand_time, demand, response,user_id)
+		command_save_demand_app = 'INSERT INTO demand_app VALUES (DEFAULT,%s,%s,%s,%s)' % (user_id, demand_time, demand, response)
 		self.execute(command_save_demand_app)
 	
 	def add_auth_user(self,role_id,user_fname,user_lname,pwd,active=True,e_mail,user_description=None):
@@ -61,7 +61,10 @@ class PostgreServer(object):
 		self.execute(command_add_auth_user)
 		command_get_user_id = 'SELECT user_id FROM auth_user WHERE e_mail = %s' % e_mail
 		user_id = self.execute(command_get_user_id)
-		command_add_user_role = 'INSERT INTO auth_user_role VALUES (%s,%s)' % (user_id,role_id)
+
+		creation_time = datetime.datetime.now()
+		expiration_time = creation_time + datetime.datetime(0,1,1)
+		command_add_user_role = 'INSERT INTO auth_user_role VALUES (%s,%s,%s,%s)' % (user_id,role_id,creation_time,expiration_time)
 		self.execute(command_add_user_role)
 		
 	'''

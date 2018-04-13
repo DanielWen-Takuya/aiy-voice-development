@@ -68,6 +68,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
 
 - Install psycopg2 http://initd.org/psycopg/docs/usage.html
   * pip install psycopg2
+  * https://blog.dotmaui.com/2017/08/16/install-psycopg2-for-python-3-via-pip3/
   * import psycopg2
   * connect to an existing database : conn = psycopg2.connect("dbname=test user=postgres password=secret") (surrounded by try-except)
   * Open a cursor to perform operations : cur = conn.cursor()
@@ -139,6 +140,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
 2018/04/13
 - create 3 files to create tables, drop tables and insert initial data
 - create postgre server to interact with PostgreSQL
+- install psycopg2
 
 # To-Do List
 - How can we get the reponse in text ?
