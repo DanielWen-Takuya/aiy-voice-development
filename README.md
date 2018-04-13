@@ -133,11 +133,18 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - set the trigger sound, the volume needs to be small in order not to be loud
 - play music by command or button, can be interrupted by pressing button
 
+2018/04/12
+- install PostgreSQL
+
+2018/04/13
+- create 3 files to create tables, drop tables and insert initial data
+- create postgre server to interact with PostgreSQL
+
 # To-Do List
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
 - Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)
-- Try Postgresql->create all the tables and insertion
+- Try Postgresql->create all the tables and insertion->test it
+- test postgre_server.py
 - play music from the list in db
-- 
