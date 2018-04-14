@@ -64,13 +64,13 @@ Using Google AIY Voice Kit, basic and new function for home use.
   * Create role : sudo -u postgres createuser --interactive (optional)(in default, role postgres is created)
   * Create database : create database [db name]  
   * Login : psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
-  * Run a file in db: -i pathof_mysqlfile.sql
+  * Run a file in db: \i pathof_mysqlfile.sql
 
 - Install psycopg2 http://initd.org/psycopg/docs/usage.html
   * pip install psycopg2
   * https://blog.dotmaui.com/2017/08/16/install-psycopg2-for-python-3-via-pip3/
   * import psycopg2
-  * connect to an existing database : conn = psycopg2.connect("dbname=test user=postgres password=secret") (surrounded by try-except)
+  * connect to an existing database : conn = psycopg2.connect("dbname=test user=postgres password=secret") (surrounded by try-except): change  /etc/postgresql/9.6/main/pg_hba.conf peer->md5
   * Open a cursor to perform operations : cur = conn.cursor()
   * Execute : cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
   * Update to make change : conn.commit()
@@ -142,11 +142,16 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - create postgre server to interact with PostgreSQL
 - install psycopg2
 
+2018/04/14
+- create the tables and insert the data
+- check postgre_server.py
+
+
 # To-Do List
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
 - Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)
-- Try Postgresql->create all the tables and insertion->test it
-- test postgre_server.py
+- Try Postgresql->create all the tables and insertion->test it->Done
+- test postgre_server.py->
 - play music from the list in db

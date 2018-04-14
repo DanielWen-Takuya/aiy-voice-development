@@ -38,8 +38,8 @@ CREATE TABLE auth_user (
 );
 
 CREATE TABLE auth_user_role (
-	user_id	verchar(8)	NOT NULL UNIQUE,
-	role_id	verchar(8)	NOT NULL,
+	user_id	INTEGER	NOT NULL UNIQUE,
+	role_id	INTEGER	NOT NULL,
 	creation_time	timestamp with time zone	NOT NULL,
 	expiration_time	timestamp with time zone	NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES auth_user(user_id),
@@ -48,7 +48,7 @@ CREATE TABLE auth_user_role (
 
 CREATE TABLE connection_status (
 	connection_id	SERIAL	PRIMARY KEY,
-	user_id	varchar(8)	NOT NULL UNIQUE,
+	user_id	INTEGER	NOT NULL UNIQUE,
 	user_ip	varchar(32)	NOT NULL UNIQUE,
 	status	varchar(16)	NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES auth_user(user_id)
@@ -56,7 +56,7 @@ CREATE TABLE connection_status (
 
 CREATE TABLE demand_app (
 	demand_id	SERIAL	PRIMARY KEY,
-	user_id	varchar(8)	NOT NULL,
+	user_id	INTEGER	NOT NULL,
 	demand_time	timestamp with time zone	NOT NULL,
 	demand	text,
 	response	text,
