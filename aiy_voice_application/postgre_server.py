@@ -29,82 +29,125 @@ class PostgreServer(object):
 	
 	"""Test use"""
 	def execute(self,command):
+		result = []
 		with self.conn:
 			with self.conn.cursor() as curs:
-				curs.execute(command)
-				result = curs.fetchone()
+				try:
+					curs.execute(command)
+					row = curs.fetchone()
+					while row:#need test
+						result.append(row)
+						row = curs.fetchone()
+					return ('Ok',result)
+				except psycopg2.Error as e:
+					error = e.pgerror
+					print(error)
+					result.append(['Error',error])
+					return ('Error',result)
+				
+		return ('Error',result)
 		
-		return result
-		
+	#need test
 	def read_music_list(self):
-		command_read_music_list = 'SELECT * FROM list_music'
+		command_read_music_list = 'SELECT * FROM list_music;'
 		return self.execute(command_read_music_list)
-		
-	def save_action_button(self, action_time, success_read, success_answer, question='NULL', answer='NULL'):
-		command_save_action_button = 'INSERT INTO action_button VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (action_time, question, answer, success_read, success_answer)
-		self.execute(command_save_action_button)
-		
-	def read_total_button(self):
-		command_read_total_button = 'SELECT count(*) FROM action_button'
-		return self.execute(command_read_music_list)
-		
-	def save_detect_human(self,detect_time,is_detected,error='NULL'):
-		command_save_detect_human = 'INSERT INTO detect_human VALUES (DEFAULT,\'%s\',\'%s\',\'%s\')' % (detect_time, is_detected, error)
-		self.execute(command_save_detect_human)
-		
-	def save_demand_app(self,demand_time,demand,user_id,response='NULL'):
-		command_save_demand_app = 'INSERT INTO demand_app VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\')' % (user_id, demand_time, demand, response)
-		self.execute(command_save_demand_app)
 	
+	#need test
+	def save_action_button(self, action_time, success_read, success_answer, question='NULL', answer='NULL'):
+		command_save_action_button = 'INSERT INTO action_button VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\');' % (action_time, question, answer, success_read, success_answer)
+		return self.execute(command_save_action_button)
+		
+	#need test
+	def read_total_button(self):
+		command_read_total_button = 'SELECT count(*) FROM action_button;'
+		return self.execute(command_read_music_list)
+	
+	#need test
+	def save_detect_human(self,detect_time,is_detected,error='NULL'):
+		command_save_detect_human = 'INSERT INTO detect_human VALUES (DEFAULT,\'%s\',\'%s\',\'%s\');' % (detect_time, is_detected, error)
+		return self.execute(command_save_detect_human)
+	
+	#need test	
+	def save_demand_app(self,demand_time,demand,user_id,response='NULL'):
+		command_save_demand_app = 'INSERT INTO demand_app VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\');' % (user_id, demand_time, demand, response)
+		return self.execute(command_save_demand_app)
+	
+	#need test
 	def add_auth_user(self,role_id,user_fname,user_lname,pwd,e_mail,active=True,user_description='NULL'):
-		command_add_auth_user = 'INSERT INTO auth_user VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (user_fname, user_lname, pwd,active,e_mail,user_description)
-		#todo : check already exist?
-		self.execute(command_add_auth_user)
-		command_get_user_id = 'SELECT user_id FROM auth_user WHERE e_mail = \'%s\'' % e_mail
-		user_id = self.execute(command_get_user_id)
+		command_add_auth_user = 'INSERT INTO auth_user VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\');' % (user_fname, user_lname, pwd,active,e_mail,user_description)
+		result = self.execute(command_add_auth_user)
+		#check already exist 
+		if result.pop() == 'Ok':
+			command_get_user_id = 'SELECT user_id FROM auth_user WHERE e_mail = \'%s\';' % e_mail
+			user_id = self.execute(command_get_user_id)
 
-		creation_time = datetime.datetime.now()
-		expiration_time = creation_time + datetime.datetime(0,1,1)
-		command_add_user_role = 'INSERT INTO auth_user_role VALUES (%s,\'%s\',\'%s\',\'%s\')' % (user_id,role_id,creation_time,expiration_time)
-		self.execute(command_add_user_role)
+			if user_id.pop() == 'Ok'
+				user_id = usr_id.pop()[0]#need pop here?
+				creation_time = datetime.datetime.now()
+				expiration_time = creation_time + datetime.datetime(0,1,1)
+				command_add_user_role = 'INSERT INTO auth_user_role VALUES (%s,\'%s\',\'%s\',\'%s\');' % (user_id,role_id,creation_time,expiration_time)
+				return self.execute(command_add_user_role)
+			else #('Error',reason)
+				return ('Error',user_id[0])
+		else #('Error',reason)
+			print('E_mail has already been used')
+			return ('Error',result[0])
 		
 	'''
 	Check the authentification to enter
-	Error 100 : E-mail not exist or password wrong
-	Error 101 : Already log in, not for twice
 	'''	
 	'''password need to be more secure'''
-	def check_auth_enter(self,e_mail,user_pwd):
-		command_check_auth_enter = 'SELECT user_id FROM auth_user WHERE e_mail = \'%s\' AND pwd = \'%s\'' % (e_mail,user_pwd)
+	#need test
+	def check_auth_enter(self,e_mail,user_pwd,user_ip):
+		command_check_auth_enter = 'SELECT user_id FROM auth_user WHERE e_mail = \'%s\' AND pwd = \'%s\';' % (e_mail,user_pwd)
 		user_id = self.execute(command_check_auth_enter)
-		if user_id is not None:
-			user_id = user_id[0]
-			command_check_auth_enter = 'SELECT * FROM connection_status WHERE user_id = \'%s\'' % user_id
-			result = self.execute(command_check_auth_enter)
-			if result is None:
-                                #add to connection_status
+		if user_id.pop() == 'Ok':
+			user_id = user_id.pop()[0]
+			command_connection_status = 'INSERT INTO connection_status VALUES (DEFAULT,\'%s\',\'%s\',\'ACTIVE\');' % (user_id,user_ip)
+			result = self.execute(command_connection_status)
+			if result.pop() == 'Ok':
 				print('%s can enter' % user_id)
-				return (True,user_id)
-			else:
-				print('%s has already logged in, please not log in twice' % user_id)
-				return (False,101)
+				return ('Ok',user_id)
+			else:#'Error'
+				error = result.pop()
+				if error == '':#need to be found
+					print('%s has already logged in, please not log in twice' % user_id)
+				else:
+					print('Error in execution')
+				return ('Error',error)
 		else:
 			print('%s not exist or password wrong' % e_mail)
-			return (False,100)
+			return ('Error',user_id[0])
+			
+	'''Delete connection when log out'''
+	#need test
+	def delect_connection(self,user_id):
+		command_delect_connection = 'DELETE FROM connection_status WHERE user_id = \'%s\';' % user_id
+		result = self.execute(command_delect_connection)
+		if result.pop() == 'Ok':
+			print('%s log out with success' % user_id)
+			return ('Ok',user_id)
+		else:#'Error'
+			return ('Error',result[0])
 	
 	'''
 	Check the role so as to access functions
-	Error 102 : given user id not exist in the auth_user_role table
 	'''	
+	#need test
 	def check_auth_role(self,user_id):
-		command_check_auth_role = 'SELECT r.role_name FROM auth_role AS r, auth_user_role AS ur WHERE r.role_id = ur.role_id AND ur.user_id = \'%s\'' % user_id
+		command_check_auth_role = 'SELECT r.role_name FROM auth_role AS r, auth_user_role AS ur WHERE r.role_id = ur.role_id AND ur.user_id = \'%s\';' % user_id
 		role_name = self.execute(command_check_auth_role)
-		if role_name is not None:
-			role_name = role_name[0]
-			print('%s : %s' % (user_id, role_name))
-			return (True,role_name)
+		if role_name.pop() == 'Ok':
+			role_name = role_name.pop()[0]
+			if role_name is not None:
+				role_name = role_name.pop()[0]
+				print('%s : %s' % (user_id, role_name))
+				return ('Ok',role_name)
+			else:
+				print('Unknown error : user_id not in auth_user_role')
+				return ('Error',role_name[0])
 		else:
-			print('Unknown error : user_id not in auth_user_role')
-			return (False,102)
+			print('Error in execution')
+			return ('Error',role_name[0])
 			
 #do some test in shell
