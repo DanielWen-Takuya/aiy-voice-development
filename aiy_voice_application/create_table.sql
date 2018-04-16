@@ -16,7 +16,7 @@ CREATE TABLE detect_human (
 
 CREATE TABLE list_music (
 	music_id	SERIAL	PRIMARY KEY,
-	file_name	varchar(32)	NOT NULL,
+	file_name	varchar(64)	NOT NULL,
 	extension	varchar(8) NOT NULL,
 	file_path	varchar(128)	NOT NULL
 );

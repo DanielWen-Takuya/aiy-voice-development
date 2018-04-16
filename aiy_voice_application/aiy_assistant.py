@@ -156,7 +156,7 @@ class AiyAssistant(object):
 			file_path = choice[2]
 			file_name = choice[0]
 			extension = choice[1]
-			complete = file_path+file_name+extension
+			complete = file_path+'/'+file_name+'.'+extension
 			print('Going to play'+complete)
 			self.music_process = subprocess.Popen(['mplayer',complete])
 			
