@@ -146,12 +146,16 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - create the tables and insert the data
 - check postgre_server.py
 
+2018/04/16
+- uploaded postgre_server.py in terms of list return, auth, connection(add & delete)
+- uploaded aiy_assistant.py in terms of subclass ActionButton, music play from db, record sth
 
 # To-Do List
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
-- Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)
+- Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->
 - Try Postgresql->create all the tables and insertion->test it->Done
-- test postgre_server.py->
-- play music from the list in db
+- full test postgre_server.py ->
+- play music from the list in db -> need test->
+- Test the action_button ->
