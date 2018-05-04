@@ -28,23 +28,20 @@ class PostgreServer(object):
 			print('Database close already')
 	
 	"""Test use, for execute sql command"""	
-	def execute(self,command):
+	def execute(self,command,isInsert=False):
 		result = []
 		with self.conn:
 			with self.conn.cursor() as curs:
 				try:
 					curs.execute(command)
-					row = curs.fetchone()
-					while row:#good for select not for insert
-						result.append(row)
-						row = curs.fetchone()
+					if not isInsert:
+						result = curs.fetchall()
 					return ('Ok',result)
 				except psycopg2.Error as e:
 					error = e.pgerror
 					print(error)
 					result.append(['Error',error])
 					return ('Error',result)
-				
 		return ('Error',result)
 		
 	#test success
@@ -52,25 +49,25 @@ class PostgreServer(object):
 		command_read_music_list = 'SELECT * FROM list_music;'
 		return self.execute(command_read_music_list)
 	
-	#insert success but return error
+	#test success
 	def save_action_button(self, action_time, success_read, success_answer, question='NULL', answer='NULL'):
 		command_save_action_button = 'INSERT INTO action_button VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\');' % (action_time, question, answer, success_read, success_answer)
-		return self.execute(command_save_action_button)
+		return self.execute(command_save_action_button,isInsert=True)
 		
 	#test success
 	def read_total_button(self):
 		command_read_total_button = 'SELECT count(*) FROM action_button;'
 		return self.execute(command_read_total_button)
 	
-	#insert success but return error
+	#test success
 	def save_detect_human(self,detect_time,is_detected,error=False):
 		command_save_detect_human = 'INSERT INTO detect_human VALUES (DEFAULT,\'%s\',\'%s\',\'%s\');' % (detect_time, is_detected, error)
-		return self.execute(command_save_detect_human)
+		return self.execute(command_save_detect_human,isInsert=True)
 	
-	#insert success but return error
+	#test success
 	def save_demand_app(self,demand_time,demand,user_id,response='NULL'):
 		command_save_demand_app = 'INSERT INTO demand_app VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\');' % (user_id, demand_time, demand, response)
-		return self.execute(command_save_demand_app)
+		return self.execute(command_save_demand_app,isInsert=True)
 	
 	#need test
 	def add_auth_user(self,role_id,user_fname,user_lname,pwd,e_mail,active=True,user_description='NULL'):
