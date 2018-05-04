@@ -1,7 +1,15 @@
 # aiy-voice-development
 Using Google AIY Voice Kit, basic and new function for home use.
 
-# Functionalities : 
+## Content
+* [Functionalities](#functionalities)
+* [APIs of AIY Voice](#knowing-the-apis-of-aiy-voice)
+* [Psycopg2](#psycopg2)
+* [Log](#log)
+* [To-Do List](#to-do-list)
+
+
+## Functionalities: 
 - Part AIY Voice Raspberry
   * React to the button : led changes and "listening" to question
   * Control the Speaker : "answer" the question and play the music
@@ -13,7 +21,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
   * Shows information : action list, action graph, detection details, detection graph
   * Send command : get list of music, play music (store in Raspberry), ask questions, led shining...
 
-# Knowing the APIs of AIY Voice: 
+## Knowing the APIs of AIY Voice: 
 - aiy.voicehat (the PCB)
   * get_button() : control the button
     * Synchronous usage : .wait_for_press()
@@ -55,7 +63,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
       for event in assistant.start():process_event(event)
     * example in aiy website
 
-# Psycopg2
+## Psycopg2
 - Install postgresql
   * sudo apt-get update
   * sudo apt-get install postgresql postgresql-contrib
@@ -94,7 +102,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
     * conn.close()
   
 
-# Log
+## Log
 2018/04/04
 - The box is assembled and the image is pluged in the card. Raspberry seems working well. Waiting for the keypad.
 
@@ -150,7 +158,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - uploaded postgre_server.py in terms of list return, auth, connection(add & delete)
 - uploaded aiy_assistant.py in terms of subclass ActionButton, music play from db, record sth
 
-# To-Do List
+## To-Do List
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
