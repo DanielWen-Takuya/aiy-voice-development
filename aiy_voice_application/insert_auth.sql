@@ -4,4 +4,4 @@ INSERT INTO auth_role VALUES (DEFAULT,'visitor','Visitor role that can only view
 
 INSERT INTO auth_user VALUES (DEFAULT,'Zoutao','Wen','for change',TRUE,'daniel27wen@gmail.com','Creator of the AIY database');
 
-INSERT INTO auth_user_role VALUES ('1','1',now(),'infinity'::timestamp);
+INSERT INTO auth_user_role VALUES ('1','1',now(),'9999-01-01 00:00:00');
