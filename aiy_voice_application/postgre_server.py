@@ -46,32 +46,39 @@ class PostgreServer(object):
 					return ('Error',result)
 		return ('Error',result)
 		
-	#test success
+	#return the whole music list in database
+	#return: ('Ok',[(1,'name','mp3','music')])
 	def read_music_list(self):
 		command_read_music_list = 'SELECT * FROM list_music;'
 		return self.execute(command_read_music_list,isSelect=True)
 	
-	#test success
+	#save the action of button with action time and commands
+	#action_time=datetime.datetime.now()
+	#return:('Ok',[])
 	def save_action_button(self, action_time, success_read, success_answer, question='NULL', answer='NULL'):
 		command_save_action_button = 'INSERT INTO action_button VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\');' % (action_time, question, answer, success_read, success_answer)
 		return self.execute(command_save_action_button)
 		
-	#test success
+	#return the total number of actions button
+	#return:return:('Ok',[(1,)])
 	def read_total_button(self):
 		command_read_total_button = 'SELECT count(*) FROM action_button;'
 		return self.execute(command_read_total_button,isSelect=True)
 	
-	#test success
+	#use with a human detector
+	#return:('Ok',[])
 	def save_detect_human(self,detect_time,is_detected,error=False):
 		command_save_detect_human = 'INSERT INTO detect_human VALUES (DEFAULT,\'%s\',\'%s\',\'%s\');' % (detect_time, is_detected, error)
 		return self.execute(command_save_detect_human)
 	
-	#test success
+	#save a demand from app
+	#return:('Ok',[])
 	def save_demand_app(self,demand_time,demand,user_id,response='NULL'):
 		command_save_demand_app = 'INSERT INTO demand_app VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\');' % (user_id, demand_time, demand, response)
 		return self.execute(command_save_demand_app)
 	
-	#test success
+	#add an other user
+	#return:('Ok',[])
 	def add_auth_user(self,role_id,user_fname,user_lname,pwd,e_mail,active=True,user_description='NULL'):
 		command_add_auth_user = 'INSERT INTO auth_user VALUES (DEFAULT,\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\');' % (user_fname, user_lname, pwd,active,e_mail,user_description)
 		result = self.execute(command_add_auth_user)
@@ -98,7 +105,7 @@ class PostgreServer(object):
 	Check the authentification to enter
 	'''	
 	'''password need to be more secure'''
-	#test success
+	#return ('Ok',user_id)
 	def check_auth_enter(self,e_mail,user_pwd,user_ip):
 		command_check_auth_enter = 'SELECT user_id FROM auth_user WHERE e_mail = \'%s\' AND pwd = \'%s\';' % (e_mail,user_pwd)
 		user_id = self.execute(command_check_auth_enter,isSelect=True)
@@ -129,8 +136,8 @@ class PostgreServer(object):
 			return ('Error',user_id[0])
 			
 	'''Delete connection when log out'''
-	#test success
-	def delect_connection(self,user_id):
+	#return ('Ok',user_id)
+	def delete_connection(self,user_id):
 		command_delect_connection = 'DELETE FROM connection_status WHERE user_id = \'%s\';' % user_id
 		result = self.execute(command_delect_connection)
 		if result[0] == 'Ok':
@@ -142,7 +149,7 @@ class PostgreServer(object):
 	'''
 	Check the role so as to access functions
 	'''	
-	#test success
+	#return ('Ok','visitor') #admin,collab,visitor
 	def check_auth_role(self,user_id):
 		command_check_auth_role = 'SELECT r.role_name FROM auth_role AS r, auth_user_role AS ur WHERE r.role_id = ur.role_id AND ur.user_id = \'%s\';' % user_id
 		role_name = self.execute(command_check_auth_role,isSelect=True)

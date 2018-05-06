@@ -1,4 +1,4 @@
-# aiy-voice-development
+﻿# aiy-voice-development
 Using Google AIY Voice Kit, basic and new function for home use.
 
 ## Content
@@ -158,12 +158,17 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - uploaded postgre_server.py in terms of list return, auth, connection(add & delete)
 - uploaded aiy_assistant.py in terms of subclass ActionButton, music play from db, record sth
 
+2018/05/06
+- tested the postgre_server.py
+- tested the aiy_assistant: random music and record the button action
+
 ## To-Do List
 - How can we get the reponse in text ?
 - Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
 - Set trigger sound->Done
-- Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->
 - Try Postgresql->create all the tables and insertion->test it->Done
-- full test postgre_server.py ->
-- play music from the list in db -> need test->
-- Test the action_button ->
+- full test postgre_server.py ->Done
+- play music from the list in db -> need test->Can play random music
+- Test the action_button -> can get the basic info -> put in the db!
+- Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->
+- begin the android server and client
