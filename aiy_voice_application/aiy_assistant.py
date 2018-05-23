@@ -44,11 +44,12 @@ class ActionButton(object):
         self.success_answer = False
 
     def set_question(self, question):
-        self.question = question
+
+        self.question = question.replace('\'','')
         self.success_read = True
 
     def set_answer(self, answer):
-        self.answer = answer
+        self.answer = answer.replace('\'','')
         self.success_answer = True
 
 
@@ -119,9 +120,9 @@ class AiyAssistant(object):
             status_ui.status('ready')
             action = self.action_button
             print('%s: %s => %s' % (action.action_time, action.question, action.answer))
-			# save action in server
-			self.server.save_action_button(action.action_time,action.success_read,action.success_answer,
-				question=action.question,answer=action.answer)
+            # save action in server
+            self.server.save_action_button(action.action_time,action.success_read,action.success_answer,
+                question=action.question,answer=action.answer)
             self._can_start_conversation = True
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and event.args and event.args['is_fatal']:
