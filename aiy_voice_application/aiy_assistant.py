@@ -116,10 +116,12 @@ class AiyAssistant(object):
         elif (event.type == EventType.ON_CONVERSATION_TURN_FINISHED
               or event.type == EventType.ON_CONVERSATION_TURN_TIMEOUT
               or event.type == EventType.ON_NO_RESPONSE):
-            # status_ui.status('ready')
-            # save action in server
+            status_ui.status('ready')
             action = self.action_button
             print('%s: %s => %s' % (action.action_time, action.question, action.answer))
+			# save action in server
+			self.server.save_action_button(action.action_time,action.success_read,action.success_answer,
+				question=action.question,answer=action.answer)
             self._can_start_conversation = True
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and event.args and event.args['is_fatal']:
