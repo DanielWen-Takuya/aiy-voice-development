@@ -64,7 +64,13 @@ class PostgreServer(object):
 	def read_total_button(self):
 		command_read_total_button = 'SELECT count(*) FROM action_button;'
 		return self.execute(command_read_total_button,isSelect=True)
-	
+	    
+	#return the latest recoding text
+	#('Ok', [('this is a recording test finish',)])
+	def read_recording_text(self):
+		command_read_recodring_text = 'SELECT answer FROM action_button WHERE question = \'record\';'
+		return self.execute(command_read_recodring_text,isSelect=True)
+
 	#use with a human detector
 	#return:('Ok',[])
 	def save_detect_human(self,detect_time,is_detected,error=False):

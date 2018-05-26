@@ -165,6 +165,10 @@ Using Google AIY Voice Kit, basic and new function for home use.
 2018/05/23
 - added some function in action_button
 
+2018/05/26
+- tested the save of action button
+- tested the recod of text and save in db
+- initialize the Android App
 
 ## To-Do List
 - [ ] How can we get the reponse in text ?
@@ -173,6 +177,8 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [x] Try Postgresql->create all the tables and insertion->test it->Done
 - [x] full test postgre_server.py ->Done
 - [ ] play music from the list in db -> need test->Can play random music
-- [ ] Test the action_button -> can get the basic info -> put in the db! -> test it
-- [ ] Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->
+- [x] Test the action_button -> can get the basic info -> put in the db! -> test it ->ok
+- [x] Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->ok magically
+- [ ] Save the sound in database?
+- [ ] Recall the recorded text -> how to prononce it
 - [ ] begin the android server and client -> check previous practice and good practices from internet

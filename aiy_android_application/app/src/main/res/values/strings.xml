@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Aiy Android Application</string>
+    <string name="email">E-mail</string>
+    <string name="passwd">Password</string>
+    <string name="welcome">Welcome to AIY Android App</string>
+    <string name="personal_tag">made by Zoutao Wen "daniel27wen@gmail.com</string>
+</resources>

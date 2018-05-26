@@ -110,6 +110,9 @@ class AiyAssistant(object):
             elif text == 'record':
                 self._assistant.stop_conversation()
                 self.record_sth()
+            elif text == 'recall':
+                self._assistant.stop_conversation()
+                self.recall_text()
 
         elif event.type == EventType.ON_END_OF_UTTERANCE:
             status_ui.status('thinking')
@@ -170,7 +173,7 @@ class AiyAssistant(object):
             print('Going to play ' + complete)
             self.music_process = subprocess.Popen(['mplayer', complete],start_new_session=True)
 
-    def record_sth(self):  # need test
+    def record_sth(self):  # success
         import aiy.assistant.grpc
         assistant = aiy.assistant.grpc.get_assistant()
         print('Recording')
@@ -178,9 +181,22 @@ class AiyAssistant(object):
             text, audio = assistant.recognize()
             if text:
                 print('You said "', text, '"')
+                self.action_button.set_answer (text)
 
             if audio:
                 aiy.audio.play_audio(audio)
+                
+    def recall_text(self):  # how to prononce it
+        result = self.server.read_recording_text()
+        if result[0] == 'Ok':
+            recording_list = result[1]
+            if len(recording_list) > 0:
+                print(recording_list[len(recording_list)-1])
+                self.action_button.set_answer('success recall')
+            else:
+                print('No recording data')
+        else:
+            print(result[0])
 
 
 # test
