@@ -170,6 +170,9 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - tested the recod of text and save in db
 - initialize the Android App
 
+2018/05/27
+- create http connection between android and aiy
+
 ## To-Do List
 - [ ] How can we get the reponse in text ?
 - [x] Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
@@ -181,4 +184,4 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [x] Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->ok magically
 - [ ] Save the sound in database?
 - [ ] Recall the recorded text -> how to prononce it
-- [ ] begin the android server and client -> check previous practice and good practices from internet
+- [ ] begin the android server and client -> connection ok ->check for data
