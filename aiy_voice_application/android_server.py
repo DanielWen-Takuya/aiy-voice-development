@@ -1,4 +1,29 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from flask import Flask
+from flask import request
+
+app = Flask(__name__)
+
+@app.route('/')
+def check_server():
+    return 'Server is active!'
+
+@app.route('/login',methods=['POST','GET'])
+def login():
+    error = None
+    if request.method == 'GET':
+        if valid_login(request.args.get('username',''),
+            request.args.get('password','')):
+            return 'OK'
+
+def valid_login(username,password):
+    print('Username:',username)
+    print('Password:',password)
+    return True
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port=5000,debug=True)
+
+'''from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class AndroidServer(BaseHTTPRequestHandler):
 
@@ -19,3 +44,4 @@ if __name__ == "__main__":
         run(port=int(argv[1]))
     else:
         run()
+'''

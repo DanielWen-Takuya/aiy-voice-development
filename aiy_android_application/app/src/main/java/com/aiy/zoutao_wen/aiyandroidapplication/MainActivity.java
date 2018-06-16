@@ -18,32 +18,38 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
 
     private DownloadTask mDownloadTask;
 
-    private EditText e;
+    private EditText email;
+    private EditText password;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        e = (EditText) findViewById(R.id.email_input);
+        email = (EditText) findViewById(R.id.email_input);
+        password = (EditText) findViewById(R.id.password_input);
+        mDownloadTask = new DownloadTask(this);
+        mDownloadTask.execute("http://192.168.1.26:5000/");
     }
 
     public void enterClicked(View v){
         Toast.makeText(this, "Checking the log in information!", Toast.LENGTH_SHORT).show();
+        String execution = "http://192.168.1.26:5000/login?username=" + email.getText() +
+                "&password=" + password.getText();
         mDownloadTask = new DownloadTask(this);
-        mDownloadTask.execute("http://192.168.1.26:80/");
+        mDownloadTask.execute(execution);
     }
 
     @Override
     public void updateFromDownload(String result) {
-        final String result_e = result;
+        //final String result_e = result;
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        runOnUiThread(new Runnable() {
+        /*runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 e.setText(result_e);
             }
-        });
+        });*/
     }
 
     @Override

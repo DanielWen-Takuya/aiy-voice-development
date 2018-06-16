@@ -5,6 +5,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
 * [Functionalities](#functionalities)
 * [APIs of AIY Voice](#knowing-the-apis-of-aiy-voice)
 * [Psycopg2](#psycopg2)
+* [RESTful Flask](#flask)
 * [Log](#log)
 * [To-Do List](#to-do-list)
 
@@ -100,7 +101,14 @@ Using Google AIY Voice Kit, basic and new function for home use.
         with conn.cursor() as curs:
           curs.execute(SQL2)
     * conn.close()
-  
+
+## Flask
+- http://docs.jinkan.org/docs/flask/installation.html
+    * sudo apt-get install python-virtualenv
+    * in the project folder, create venv folder
+    * virtualenv venv
+    * .venv/bin/activate
+    * pip install Flask
 
 ## Log
 2018/04/04
@@ -173,6 +181,10 @@ Using Google AIY Voice Kit, basic and new function for home use.
 2018/05/27
 - create http connection between android and aiy
 
+2018/06/16
+- if you want to link from outside, set 0.0.0.0
+- 
+
 ## To-Do List
 - [ ] How can we get the reponse in text ?
 - [x] Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
@@ -184,4 +196,5 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [x] Record a file in local by command "Record what I am going to say" (file in local - change aiy.assistant, text may be in database)-> test ->ok magically
 - [ ] Save the sound in database?
 - [ ] Recall the recorded text -> how to prononce it
-- [ ] begin the android server and client -> connection ok ->check for data
+- [x] begin the android server and client -> connection ok ->check for data
+- [ ] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password
