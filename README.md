@@ -183,7 +183,10 @@ Using Google AIY Voice Kit, basic and new function for home use.
 
 2018/06/16
 - if you want to link from outside, set 0.0.0.0
-- 
+
+2018/06/17
+- md5 : we just need to use md5 encode in android side and compare to the md5-encoded pwd
+- check true password in database
 
 ## To-Do List
 - [ ] How can we get the reponse in text ?
@@ -197,4 +200,4 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [ ] Save the sound in database?
 - [ ] Recall the recorded text -> how to prononce it
 - [x] begin the android server and client -> connection ok ->check for data
-- [ ] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password
+- [ ] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password ok -> everytime logout send REST to delete and react in server side
