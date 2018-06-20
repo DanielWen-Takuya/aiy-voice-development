@@ -200,4 +200,5 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [ ] Save the sound in database?
 - [ ] Recall the recorded text -> how to prononce it
 - [x] begin the android server and client -> connection ok ->check for data
-- [ ] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password ok -> everytime logout send REST to delete and react in server side (in downloadUrl we choose the type, and in server we add @app.route('/logout', methods=['DELETE']))
+- [ ] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password ok -> everytime logout send REST to delete and react in server side (in downloadUrl we choose the type, and in server we add @app.route('/logout', methods=['DELETE'])) -> need test
+- [ ] in android app, create a menu and add some functional fragment

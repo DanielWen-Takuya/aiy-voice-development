@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
     private EditText email;
     private EditText password;
 
+    private String user;//user id
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +79,16 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
             }else if(action.equals("login")){
                 if(status){
                     //enter here
-                    String user = json_result.getString("email");
+                    user = json_result.getString("id");
                     Toast.makeText(this,"Welcome " + user + " !",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(this,"Wrong email or password",Toast.LENGTH_SHORT).show();
+                }
+            }else if(action.equals("logout")){
+                if(status){
+                    Toast.makeText(this,"Id " + user + " logout success!",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this,"Logout failed! Contact to administrator",Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (JSONException e) {
@@ -124,6 +132,14 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
     @Override
     public void finishDownloading() {
         mDownloading = false;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        String execution = "http://192.168.1.26:5000/logout?id=" + user ;
+        mDownloadTask = new DownloadTask(this);
+        mDownloadTask.execute(execution);
     }
 
     public static String md5(String content) {

@@ -16,13 +16,32 @@ def check_server():
 @app.route('/login',methods=['POST','GET'])
 def login():
     error = None
-    data = {'status' : False, 'action' : 'login', 'email' : ''}
-    if request.method == 'GET':
-        data['email'] = request.args.get('email','') #  need to get from database
-        if valid_login(request.args.get('email',''),
-            request.args.get('password','')):
+    data = {'status' : False, 'action' : 'login', 'id' : ''}
+    if(request.method == 'GET'):
+        result = valid_login(request.args.get('email',''),
+            request.args.get('password',''))
+        if result[0]:
             data['status'] = True
+            data['id'] = result[1]
         return json.dumps(data)
+
+@app.route('/logout',methods=['DELETE'])
+def logout():
+    id = request.args.get('id','')
+    data = {'status' : False, 'action' : 'logout', 'id' : id}
+    if(id != ''):
+        server.connect()
+        check_logout = server.delete_connection(id)
+        server.close()
+
+        if(check_logout[0] == 'Ok'):
+            print('id: %d has been logged out' % id)
+            data['status'] = True
+        else:
+            print('Problem occurs: %s' % check_logout[1])
+    else:
+        print('No received id')
+    return json.dumps(data)
 
 
 def valid_login(email,password):
@@ -33,9 +52,9 @@ def valid_login(email,password):
     if(check_login[0] == 'Ok'):
         print('id:',check_login[1])
         print('Password:',password)
-        return True
+        return (True,check_login[1])
     else:
-        return False
+        return (False,check_login[1])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000,debug=True)
