@@ -35,7 +35,7 @@ def logout():
         server.close()
 
         if(check_logout[0] == 'Ok'):
-            print('id: %d has been logged out' % id)
+            print('id: %s has been logged out' % id)
             data['status'] = True
         else:
             print('Problem occurs: %s' % check_logout[1])

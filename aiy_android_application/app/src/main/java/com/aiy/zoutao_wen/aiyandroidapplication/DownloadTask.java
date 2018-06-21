@@ -68,9 +68,10 @@ public class DownloadTask extends AsyncTask<String, Integer, DownloadTask.Result
         Result result = null;
         if (!isCancelled() && urls != null && urls.length > 0) {
             String urlString = urls[0];
+            String method = urls[1];
             try {
                 URL url = new URL(urlString);
-                String resultString = downloadUrl(url);
+                String resultString = downloadUrl(url, method);
                 if (resultString != null) {
                     result = new Result(resultString);
                 } else {
@@ -105,7 +106,7 @@ public class DownloadTask extends AsyncTask<String, Integer, DownloadTask.Result
     protected void onCancelled(Result result) {
     }
 
-    private String downloadUrl(URL url) throws IOException {
+    private String downloadUrl(URL url, String method) throws IOException {
         InputStream stream = null;
         HttpURLConnection connection = null;
         String result = null;
@@ -116,7 +117,7 @@ public class DownloadTask extends AsyncTask<String, Integer, DownloadTask.Result
             // Timeout for connection.connect() arbitrarily set to 3000ms.
             connection.setConnectTimeout(3000);
             // For this use case, set HTTP method to GET.
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod(method);
             // Already true by default but setting just in case; needs to be true since this request
             // is carrying an input (response) body.
             connection.setDoInput(true);

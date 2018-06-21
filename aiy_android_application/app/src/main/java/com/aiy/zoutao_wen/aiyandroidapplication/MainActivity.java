@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
         email = (EditText) findViewById(R.id.email_input);
         password = (EditText) findViewById(R.id.password_input);
         mDownloadTask = new DownloadTask(this);
-        mDownloadTask.execute("http://192.168.1.26:5000/");
+        mDownloadTask.execute("http://192.168.1.26:5000/","GET");
     }
 
     public void enterClicked(View v){
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
         String execution = "http://192.168.1.26:5000/login?email=" + email.getText() +
                 "&password=" + md5(password.getText().toString());
         mDownloadTask = new DownloadTask(this);
-        mDownloadTask.execute(execution);
+        mDownloadTask.execute(execution,"GET");
     }
 
     @Override
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
         super.onStop();
         String execution = "http://192.168.1.26:5000/logout?id=" + user ;
         mDownloadTask = new DownloadTask(this);
-        mDownloadTask.execute(execution);
+        mDownloadTask.execute(execution,"DELETE");
     }
 
     public static String md5(String content) {
