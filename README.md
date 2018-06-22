@@ -1,4 +1,4 @@
-﻿# aiy-voice-development
+# aiy-voice-development
 Using Google AIY Voice Kit, basic and new function for home use.
 
 ## Content
@@ -188,6 +188,10 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - md5 : we just need to use md5 encode in android side and compare to the md5-encoded pwd
 - check true password in database
 
+2018/06/22
+- create a drawer menu prototype in android
+
+
 ## To-Do List
 - [ ] How can we get the reponse in text ?
 - [x] Play a local music using aiy.audio->Done，not using aiy.audio but subprocess
@@ -201,4 +205,5 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [ ] Recall the recorded text -> how to prononce it
 - [x] begin the android server and client -> connection ok ->check for data
 - [x] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password ok -> everytime logout send REST to delete and react in server side (in downloadUrl we choose the type, and in server we add @app.route('/logout', methods=['DELETE'])) -> need test -> ok
-- [ ] in android app, create a menu and add some functional fragment
+- [x] in android app, create a menu and add some functional fragment 
+- [ ] update the user name and email & create a function in postgre_server.py that can get all info by id & show the information in one choice of menu

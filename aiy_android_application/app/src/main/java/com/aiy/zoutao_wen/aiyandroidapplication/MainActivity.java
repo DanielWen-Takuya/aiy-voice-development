@@ -3,6 +3,7 @@ package com.aiy.zoutao_wen.aiyandroidapplication;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -81,14 +82,11 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
                     //enter here
                     user = json_result.getString("id");
                     Toast.makeText(this,"Welcome " + user + " !",Toast.LENGTH_SHORT).show();
+                    Intent startMenuActivity = new Intent(this, MenuActivity.class);
+                    startMenuActivity.putExtra("USER_ID",user);
+                    startActivity(startMenuActivity);
                 }else{
                     Toast.makeText(this,"Wrong email or password",Toast.LENGTH_SHORT).show();
-                }
-            }else if(action.equals("logout")){
-                if(status){
-                    Toast.makeText(this,"Id " + user + " logout success!",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this,"Logout failed! Contact to administrator",Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (JSONException e) {
@@ -132,14 +130,6 @@ public class MainActivity extends AppCompatActivity implements DownloadCallback<
     @Override
     public void finishDownloading() {
         mDownloading = false;
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        String execution = "http://192.168.1.26:5000/logout?id=" + user ;
-        mDownloadTask = new DownloadTask(this);
-        mDownloadTask.execute(execution,"DELETE");
     }
 
     public static String md5(String content) {
