@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,12 +28,18 @@ public class MenuActivity extends AppCompatActivity
     private DownloadTask mDownloadTask;
     private boolean mDownloading = false;
 
-    private String user;//user id
+    private TextView user_name_tv;
+    private TextView user_email_tv;
+
+    private String user_id;//user_id id
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,7 +61,10 @@ public class MenuActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        user = getIntent().getStringExtra("USER_ID");
+        user_id = getIntent().getStringExtra("USER_ID");
+        String execution = "http://192.168.1.26:5000/getUserInfo?id=" + user_id;
+        mDownloadTask = new DownloadTask(this);
+        mDownloadTask.execute(execution,"GET");
     }
 
     @Override
@@ -64,6 +75,13 @@ public class MenuActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        //where to update??
+        user_name_tv = (TextView)findViewById(R.id.user_name);
+        user_email_tv = (TextView)findViewById(R.id.user_email);
+        String full_name = user.getFname() + " " + user.getLname();
+        String email = user.getE_mail();
+        user_name_tv.setText(full_name);
+        user_email_tv.setText(email);
     }
 
     @Override
@@ -123,16 +141,30 @@ public class MenuActivity extends AppCompatActivity
         //final String result_e = result;
         String action;
         Boolean status;
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         try {
             JSONObject json_result = new JSONObject(result);
             action = json_result.getString("action");
             status = json_result.getBoolean("status");
             if(action.equals("logout")){
                 if(status){
-                    Toast.makeText(this,"Id " + user + " logout success!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Id " + user_id + " logout success!",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(this,"Logout failed! Contact to administrator",Toast.LENGTH_SHORT).show();
+                }
+            }else if(action.equals("getUserInfo")){
+                if(status){
+                    Toast.makeText(this,"Get Id " + user_id + " info success!",Toast.LENGTH_SHORT).show();
+                    JSONArray user_info = json_result.getJSONArray("userInfo");
+                    user = new User(user_id, user_info.get(0).toString(),user_info.get(1).toString(),
+                            user_info.get(2).toString(),user_info.get(3).toString(),
+                            user_info.get(4).toString(),user_info.get(5).toString(),
+                            user_info.get(6).toString());
+                    //Toast.makeText(this,"Test:" + user.getFname(),Toast.LENGTH_SHORT).show();
+
+                    //not update textView info here
+                }else{
+                    Toast.makeText(this,"Failed to get Id " + user_id + " info !",Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (JSONException e) {
@@ -176,7 +208,7 @@ public class MenuActivity extends AppCompatActivity
     @Override
     public void onStop(){
         super.onStop();
-        String execution = "http://192.168.1.26:5000/logout?id=" + user ;
+        String execution = "http://192.168.1.26:5000/logout?id=" + user_id;
         mDownloadTask = new DownloadTask(this);
         mDownloadTask.execute(execution,"DELETE");
     }

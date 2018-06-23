@@ -157,7 +157,8 @@ class PostgreServer(object):
 	'''	
 	#return ('Ok','visitor') #admin,collab,visitor
 	def check_auth_role(self,user_id):
-		command_check_auth_role = 'SELECT r.role_name FROM auth_role AS r, auth_user_role AS ur WHERE r.role_id = ur.role_id AND ur.user_id = \'%s\';' % user_id
+		command_check_auth_role = 'SELECT r.role_name FROM auth_role AS r, \
+			auth_user_role AS ur WHERE r.role_id = ur.role_id AND ur.user_id = \'%s\';' % user_id
 		role_name = self.execute(command_check_auth_role,isSelect=True)
 		if role_name[0] == 'Ok':
 			role_name = role_name[1][0][0]
@@ -169,5 +170,23 @@ class PostgreServer(object):
 		else:
 			print('Error in execution')
 			return ('Error',role_name[0])
+
+	def get_user_info(self,user_id):
+		command_get_user_info = 'SELECT u.user_fname, u.user_lname, u.e_mail, u.user_description, \
+			r.role_name, ur.creation_time, ur.expiration_time FROM auth_user AS u, \
+			auth_role AS r, auth_user_role AS ur WHERE u.user_id = ur.user_id AND \
+			r.role_id = ur.role_id AND ur.user_id = \'%s\';' % user_id
+		user_info = self.execute(command_get_user_info,isSelect=True)
+		if user_info[0] == 'Ok':
+			user_info = user_info[1][0]
+			print(user_info)
+			return ('Ok',user_info)
+		elif user_info[0] == 'None':
+			print('Unknown error : user_id not in auth_user_role')
+			return ('Error',user_info[0])
+		else:
+			print('Error in execution')
+			return ('Error',user_info[0])
+
 			
 #do some test in shell

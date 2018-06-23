@@ -8,6 +8,8 @@ app = Flask(__name__)
 
 server = PostgreServer('qwertyuiop')
 
+trust = False #  need to reinforce
+
 @app.route('/')
 def check_server():
     data = {'status' : True, 'action' : 'check'}
@@ -23,6 +25,8 @@ def login():
         if result[0]:
             data['status'] = True
             data['id'] = result[1]
+            global trust 
+            trust = True
         return json.dumps(data)
 
 @app.route('/logout',methods=['DELETE'])
@@ -41,7 +45,35 @@ def logout():
             print('Problem occurs: %s' % check_logout[1])
     else:
         print('No received id')
+
+    global trust
+    trust = False
     return json.dumps(data)
+
+@app.route('/getUserInfo',methods=['GET'])
+def getUserInfo():
+    if trust:
+        id = request.args.get('id','')
+        data = {'status' : False, 'action' : 'getUserInfo', 'id' : id}
+        if(id != ''):
+            server.connect()
+            userInfo = server.get_user_info(id)
+            server.close()
+
+            if(userInfo[0] == 'Ok'):
+                print('get id:%s info success' % id)
+                data['userInfo'] = reformatJSON(userInfo[1])
+                data['status'] = True
+            else:
+                print('Problem occurs: %s' % userInfo[1])
+        else:
+            print('No received id')
+
+        return json.dumps(data)
+
+    else:  # use abnormal way entering
+        return "Hacker get out!"  
+
 
 
 def valid_login(email,password):
@@ -55,6 +87,13 @@ def valid_login(email,password):
         return (True,check_login[1])
     else:
         return (False,check_login[1])
+
+def reformatJSON(userInfo):
+    userJSON = [userInfo[0], userInfo[1], userInfo[2], userInfo[3], userInfo[4]]
+    userJSON.append(userInfo[5].isoformat(' '))
+    userJSON.append(userInfo[6].isoformat(' '))
+    return userJSON
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5000,debug=True)

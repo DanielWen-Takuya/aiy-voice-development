@@ -191,6 +191,10 @@ Using Google AIY Voice Kit, basic and new function for home use.
 2018/06/22
 - create a drawer menu prototype in android
 
+2018/06/23
+- a new function in postgre_server to get the info of user
+- as well as android_server
+- try to update in android part but fail(where to update?)
 
 ## To-Do List
 - [ ] How can we get the reponse in text ?
@@ -206,4 +210,4 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [x] begin the android server and client -> connection ok ->check for data
 - [x] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password ok -> everytime logout send REST to delete and react in server side (in downloadUrl we choose the type, and in server we add @app.route('/logout', methods=['DELETE'])) -> need test -> ok
 - [x] in android app, create a menu and add some functional fragment 
-- [ ] update the user name and email & create a function in postgre_server.py that can get all info by id & show the information in one choice of menu
+- [ ] update the user name and email & create a function in postgre_server.py that can get all info by id & show the information in one choice of menu -> need to solve the bug in update info
