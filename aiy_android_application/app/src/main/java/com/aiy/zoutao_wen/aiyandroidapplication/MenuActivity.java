@@ -1,5 +1,7 @@
 package com.aiy.zoutao_wen.aiyandroidapplication;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,6 +36,9 @@ public class MenuActivity extends AppCompatActivity
     private String user_id;//user_id id
     private User user;
 
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,12 @@ public class MenuActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        mFragmentManager= getFragmentManager();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        WelcomeFragment welcomeFragment = new WelcomeFragment();
+        fragmentTransaction.add(R.id.fragment_container,welcomeFragment);
+        fragmentTransaction.commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -109,14 +120,30 @@ public class MenuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_data_obs) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            DataObservationFragment dataObservationFragment = new DataObservationFragment();
+            fragmentTransaction.replace(R.id.fragment_container,dataObservationFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_data_graph) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            DataGraphFragment dataGraphFragment = new DataGraphFragment();
+            fragmentTransaction.replace(R.id.fragment_container,dataGraphFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_play_music) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            PlayMusicFragment playMusicFragment = new PlayMusicFragment();
+            fragmentTransaction.replace(R.id.fragment_container,playMusicFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_user_info) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            UserInfoFragment userInfoFragment = new UserInfoFragment();
+            fragmentTransaction.replace(R.id.fragment_container,userInfoFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
