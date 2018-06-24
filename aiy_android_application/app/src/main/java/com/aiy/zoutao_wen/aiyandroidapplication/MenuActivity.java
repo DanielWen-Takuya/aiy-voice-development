@@ -39,7 +39,6 @@ public class MenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,11 +59,16 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        user_name_tv = (TextView)headerView.findViewById(R.id.user_name);
+        user_email_tv = (TextView)headerView.findViewById(R.id.user_email);
 
         user_id = getIntent().getStringExtra("USER_ID");
         String execution = "http://192.168.1.26:5000/getUserInfo?id=" + user_id;
         mDownloadTask = new DownloadTask(this);
         mDownloadTask.execute(execution,"GET");
+
+
     }
 
     @Override
@@ -75,13 +79,6 @@ public class MenuActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-        //where to update??
-        user_name_tv = (TextView)findViewById(R.id.user_name);
-        user_email_tv = (TextView)findViewById(R.id.user_email);
-        String full_name = user.getFname() + " " + user.getLname();
-        String email = user.getE_mail();
-        user_name_tv.setText(full_name);
-        user_email_tv.setText(email);
     }
 
     @Override
@@ -163,6 +160,16 @@ public class MenuActivity extends AppCompatActivity
                     //Toast.makeText(this,"Test:" + user.getFname(),Toast.LENGTH_SHORT).show();
 
                     //not update textView info here
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String full_name = user.getFname() + " " + user.getLname();
+                            String email = user.getE_mail();
+                            user_name_tv.setText(full_name);
+                            user_email_tv.setText(email);
+                        }
+                    });
+
                 }else{
                     Toast.makeText(this,"Failed to get Id " + user_id + " info !",Toast.LENGTH_SHORT).show();
                 }

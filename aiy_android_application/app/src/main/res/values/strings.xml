@@ -4,8 +4,8 @@
     <string name="passwd">Password</string>
     <string name="welcome">Welcome to AIY Android App</string>
     <string name="personal_tag">made by Zoutao Wen (daniel27wen@gmail.com)</string>
-    <string name="nav_header_title">User Name</string>
-    <string name="nav_header_subtitle">User email</string>
+    <string name="nav_header_title">$1%s</string>
+    <string name="nav_header_subtitle">$1%s</string>
     <string name="action_settings">Settings</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
