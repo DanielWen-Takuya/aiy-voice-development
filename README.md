@@ -214,6 +214,8 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [ ] User Information : Show the correct information of user (show in table)
 - [ ] Play Music : Play ramdom song and can be stopped and cut
 - [ ] Data Observation : choose from a drop-down list the type of data and show it in a table (different fragment)
+- [ ] Create user in the MainActivity
+- [ ] Database for the recording phrases
 - [ ] User Information : A button of modification that inflate for another fragment (show in table, each line of the second row is an EditText)
 - [ ] Play Music : get the list of existed songs and play the one we choose
 - [ ] Play Music : upload a new song to server, save the info in database and play it
