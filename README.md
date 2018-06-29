@@ -210,4 +210,11 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [x] begin the android server and client -> connection ok ->check for data
 - [x] change the server to Flask RESTful server -> connectin ok -> send basic info ok -> use JSON to return info & use MD5 to cover password ok -> everytime logout send REST to delete and react in server side (in downloadUrl we choose the type, and in server we add @app.route('/logout', methods=['DELETE'])) -> need test -> ok
 - [x] in android app, create a menu and add some functional fragment 
-- [ ] update the user name and email & create a function in postgre_server.py that can get all info by id & show the information in one choice of menu -> need to solve the bug in update info
+- [x] update the user name and email & create a function in postgre_server.py that can get all info by id & show the information in one choice of menu -> need to solve the bug in update info -> bug solved -> create the fragments templates -> ok
+- [ ] User Information : Show the correct information of user (show in table)
+- [ ] Play Music : Play ramdom song and can be stopped and cut
+- [ ] Data Observation : choose from a drop-down list the type of data and show it in a table (different fragment)
+- [ ] User Information : A button of modification that inflate for another fragment (show in table, each line of the second row is an EditText)
+- [ ] Play Music : get the list of existed songs and play the one we choose
+- [ ] Play Music : upload a new song to server, save the info in database and play it
+- [ ] Data Graph : show the data of action_button (nb/day), detect human (nb/day) in a graph
