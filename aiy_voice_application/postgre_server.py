@@ -122,6 +122,7 @@ class PostgreServer(object):
 			result = self.execute(command_check_auth_enter,isSelect=True)[0]
 			print(result)
 			if result == 'Ok':
+				return ('Ok',user_id)  # for test
 				command_connection_status = 'INSERT INTO connection_status VALUES (DEFAULT,\'%s\',\'%s\',\'ACTIVE\');' % (user_id,user_ip)
 				result = self.execute(command_connection_status)
 				if result[0] == 'Ok':

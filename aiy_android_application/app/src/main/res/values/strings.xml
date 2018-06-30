@@ -10,4 +10,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="id">ID</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last name</string>
+    <string name="role">Role</string>
+    <string name="creat_time">Creation Time</string>
+    <string name="expir_time">Expiration Time</string>
+    <string name="usr_desp">User Description</string>
+    <string name="n_a">N/A</string>
 </resources>

@@ -246,4 +246,8 @@ public class MenuActivity extends AppCompatActivity
         mDownloadTask = new DownloadTask(this);
         mDownloadTask.execute(execution,"DELETE");
     }
+
+    public User getUser(){
+        return user;
+    }
 }
