@@ -212,7 +212,7 @@ Using Google AIY Voice Kit, basic and new function for home use.
 - [x] in android app, create a menu and add some functional fragment 
 - [x] update the user name and email & create a function in postgre_server.py that can get all info by id & show the information in one choice of menu -> need to solve the bug in update info -> bug solved -> create the fragments templates -> ok
 - [x] User Information : Show the correct information of user (show in table)
-- [ ] Play Music : Play ramdom song and can be stopped and cut
+- [ ] Play Music : Play random song and can be stopped and cut -> play serverside ok -> 
 - [ ] Data Observation : choose from a drop-down list the type of data and show it in a table (different fragment)
 - [ ] Create user in the MainActivity
 - [ ] Database for the recording phrases

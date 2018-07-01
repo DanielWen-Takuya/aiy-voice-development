@@ -3,10 +3,15 @@ from flask import request
 import json
 
 from postgre_server import PostgreServer
+from aiy_assistant import AiyAssistant
 
 app = Flask(__name__)
 
 server = PostgreServer('qwertyuiop')
+
+aiyAssistant = AiyAssistant('qwertyuiop')
+
+aiyAssistant.start()
 
 trust = False #  need to reinforce
 
@@ -74,6 +79,10 @@ def getUserInfo():
     else:  # use abnormal way entering
         return "Hacker get out!"  
 
+@app.route('/playRandomMusic',methods=['GET'])
+def playRandomMusic():
+    aiyAssistant.play_music()
+    return Ture
 
 
 def valid_login(email,password):
